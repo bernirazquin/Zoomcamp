@@ -2,10 +2,11 @@
 
 ## Question 1: Understanding Docker images
 Executed this command:
-`docker run -it --entrypoint bash python:3.13`
+```bash
+docker run -it --entrypoint bash python:3.13
+```
 Inside the container I executed `pip --version`.
 Version is 25.3
-
 
 ## Question 2:
 
@@ -15,6 +16,7 @@ postgres:5432 is the host name and port.
 
 For Question 3 query was: 
 
+```sql
 SELECT 
     COUNT(*)
 FROM 
@@ -23,6 +25,7 @@ WHERE
     lpep_pickup_datetime >= '2025-11-01 00:00:00' 
     AND lpep_pickup_datetime < '2025-12-01 00:00:00'
     AND trip_distance <= 1;
+```
 
 and the answer was 8007 
 
@@ -30,6 +33,7 @@ and the answer was 8007
 
 For question 4 the query was: 
 
+```sql
 SELECT 
     CAST(lpep_pickup_datetime AS DATE) AS pickup_day,
     MAX(trip_distance) AS max_distance
@@ -38,7 +42,7 @@ WHERE trip_distance <= 100
 GROUP BY pickup_day
 ORDER BY max_distance DESC
 LIMIT 1;
-
+```
 
 And the answer is: 2025-11-14
 
@@ -46,6 +50,7 @@ And the answer is: 2025-11-14
 
 For question 5 the query was: 
 
+```sql
 SELECT 
     z."Zone", 
     SUM(t.total_amount) AS total_amount_sum
@@ -60,6 +65,7 @@ GROUP BY
 ORDER BY 
     total_amount_sum DESC
 LIMIT 1;
+```
 
 and the answer was East Harlem North
 
@@ -67,6 +73,7 @@ and the answer was East Harlem North
 
 For question 5 the query was: 
 
+```sql
 SELECT 
     zdo."Zone" AS dropoff_zone, 
     MAX(t.tip_amount) AS max_tip
@@ -85,5 +92,6 @@ GROUP BY
 ORDER BY 
     max_tip DESC
 LIMIT 1;
+```
 
 and the answer was Yorkville West
