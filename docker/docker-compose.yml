@@ -58,6 +58,11 @@ services:
       - kestra_data:/app/storage
       - /var/run/docker.sock:/var/run/docker.sock
       - /tmp/kestra-wd:/tmp/kestra-wd
+      - /workspaces/Homework1-DE-zoomcamp/h1_terraform/terrademo/keys:/app/keys
+    
+    env_file:
+    - .env_encoded
+
     environment:
       KESTRA_CONFIGURATION: |
         datasources:
@@ -67,9 +72,11 @@ services:
             username: kestra
             password: k3str4
         kestra:
+          secret:
+            type: TYPESAFE
           server:
             basicAuth:
-              username: "admin@kestra.io" # it must be a valid email address
+              username: "admin@kestra.io"
               password: Admin1234!
           repository:
             type: postgres
@@ -79,6 +86,11 @@ services:
               basePath: "/app/storage"
           queue:
             type: postgres
+          ai:
+            type: gemini
+            gemini:
+              model-name: gemini-2.5-flash
+              api-key: ${GEMINI_API_KEY}
           tasks:
             tmpDir:
               path: /tmp/kestra-wd/tmp
@@ -89,4 +101,4 @@ services:
     depends_on:
       kestra_postgres:
         condition: service_started
-    
+
