@@ -1,0 +1,13 @@
+bq load \
+    --source_format=CSV \
+    --autodetect \
+    --replace \
+    "${PROJECT_ID}:taxi_trips_data_all.yellow_tripdata" \
+    "gs://${BUCKET_NAME}/yellow/yellow_tripdata_*.csv.gz"
+
+    bq load \
+    --source_format=CSV \
+    --autodetect \
+    --replace \
+    "${PROJECT_ID}:taxi_trips_data_all.green_tripdata" \
+    "gs://${BUCKET_NAME}/green/green_tripdata_*.csv.gz"
