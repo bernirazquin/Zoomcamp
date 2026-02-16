@@ -13,6 +13,7 @@ keys/
 secrets/
 auth/
 .env
+.env_encoded
 .envrc
 *.pem
 *.ppk
