@@ -18,13 +18,21 @@ This repository contains my progress and projects for the Data Engineering Zoomc
 * **Stream Processing:** Kafka
 
 ### Repository Structure
-* **/week_1_basics_n_setup:** Docker, Postgres, and Terraform basics.
-* **/week_2_workflow_orchestration:** Building pipelines with [Your Orchestrator].
-* **/week_3_data_warehouse:** BigQuery partitioned and clustered tables.
-* **/week_4_analytics_engineering:** Transformation layers with dbt.
-* **/week_5_batch_processing:** Distributed processing with Spark.
-* **/week_6_streaming:** Real-time data with Kafka.
-* **/final_project:**
+I have organized this repository by tool and functional area rather than chronological modules. This structure reflects the connectivity between components and follows a more professional, production-oriented layout:
+
+* **/docker:** Local database setup, containerization of ingestion scripts, and initial SQL explorations.
+* **/terraform:** Infrastructure as Code (IaC) configuration for managing Google Cloud Platform (GCP) resources, including GCS buckets and BigQuery datasets.
+* **/model_deployment:** Scripts and configurations for deploying and serving models within the data pipeline.
+* **/analytics_engineering (modulo4):** Transformation layers and data modeling focusing on dbt (data build tool).
+* **/orchestration:** Pipeline automation and workflow management using [Insert your tool, e.g., Kestra or Airflow].
+
+### Architectural Approach
+I decided to structure this repository based on tools rather than chronological modules. This approach allows for:
+* **Modularity:** Easier management of dependencies specific to each tool.
+* **Connectivity:** A clearer view of how different components of the stack interact (e.g., how the orchestrator triggers Spark jobs or dbt models).
+* **Scalability:** The ability to update individual layers of the infrastructure without disrupting the logic of the entire project.
+
+Due to interconectivity between modules, I decided to keep the folder structure separating between tools more than modules. 
 
 ### Key Learning Outcomes
 * Managed Google Cloud Platform (GCP) resources using Terraform.
