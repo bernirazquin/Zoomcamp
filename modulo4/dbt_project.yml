@@ -1,42 +1,45 @@
-
-# Name your project! Project names should contain only lowercase characters
-# and underscores. A good package name should reflect your organization's
-# name or the intended use of these models
-name: 'my_new_project'
+# 1. IDENTIFICACIÓN DEL PROYECTO
+# 'name' es el nombre único de tu proyecto. 
+# Importante: Todo lo que definas en la sección 'models' al final debe colgar de este nombre.
+name: 'taxi_rides_ny'
 version: '1.0.0'
 config-version: 2
 
-# This setting configures which "profile" dbt uses for this project.
+# 2. CONEXIÓN CON LA NUBE (dbt Cloud CLI)
+# Este bloque le dice al comando dbt de tu terminal que no use una base de datos local,
+# sino que mande la ejecución a tu proyecto específico en la plataforma de dbt Cloud.
+dbt-cloud:
+  project-id: 70471823554289
+
+# 'profile' indica qué configuración de conexión usar. 
+# En dbt Cloud, siempre se deja como 'default' porque la conexión se configura en la interfaz web.
 profile: 'default'
 
-# These configurations specify where dbt should look for different types of files.
-# The `model-paths` config, for example, states that models in this project can be
-# found in the "models/" directory. You probably won't need to change these!
-model-paths: ["models"]
-analysis-paths: ["analyses"]
-test-paths: ["tests"]
-seed-paths: ["seeds"]
-macro-paths: ["macros"]
-snapshot-paths: ["snapshots"]
+# 3. RUTAS DE DIRECTORIOS
+# Aquí le dices a dbt en qué carpetas de tu VS Code están guardados los archivos.
+model-paths: ["models"]      # Donde están tus archivos .sql (los modelos)
+analysis-paths: ["analyses"] # Consultas SQL que no son modelos (para análisis rápido)
+test-paths: ["tests"]        # Pruebas de calidad de datos (asegurar que no haya nulos, etc.)
+seed-paths: ["seeds"]        # Archivos CSV pequeños que quieres cargar como tablas
+macro-paths: ["macros"]      # Funciones reutilizables de Jinja (como pedazos de código SQL)
+snapshot-paths: ["snapshots"] # Para llevar historial de cambios en tablas (Slowly Changing Dimensions)
 
-target-path: "target"  # directory which will store compiled SQL files
-clean-targets:         # directories to be removed by `dbt clean`
+# 4. ARCHIVOS TEMPORALES
+# 'target-path' es donde dbt guarda el SQL final compilado después de procesar el Jinja.
+target-path: "target"
+clean-targets:
   - "target"
-  - "dbt_packages"
+  - "dbt_packages" # Carpetas que se borran cuando corres 'dbt clean'
 
-
-# Configuring models
-# Full documentation: https://docs.getdbt.com/docs/configuring-models
-
-# In dbt, the default materialization for a model is a view. This means, when you run 
-# dbt run or dbt build, all of your models will be built as a view in your data platform. 
-# The configuration below will override this setting for models in the example folder to 
-# instead be materialized as tables. Any models you add to the root of the models folder will 
-# continue to be built as views. These settings can be overridden in the individual model files
-# using the `{{ config(...) }}` macro.
-
+# 5. CONFIGURACIÓN DE MODELOS (Cómo se crean en la base de datos)
+# Aquí defines las reglas para tus carpetas.
 models:
-  my_new_project:
-    # Applies to all files under models/example/
-    example:
-      +materialized: table
+  taxi_rides_ny: # <-- Este nombre DEBE coincidir con el 'name' de la línea 4
+    
+    # Configuración para la carpeta 'models/staging/'
+    staging:
+      +materialized: view # Los modelos aquí se crearán como VISTAS (más rápido, menos espacio)
+    
+    # Configuración para la carpeta 'models/core/'
+    core:
+      +materialized: table # Los modelos aquí se crearán como TABLAS físicas (mejor rendimiento para dashboards)
