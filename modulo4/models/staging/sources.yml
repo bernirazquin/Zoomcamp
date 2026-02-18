@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+    -name: bigquery_data
+     description: "Raw data sources for NYC taxi rides"
+     database: modulo4-487315 # project ID
+     schema: taxi_trips_data_all # Dataset name
+     tables: 
+         - name: green_tripdata
+         - name: yellow_tripdata
