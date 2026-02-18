@@ -24,7 +24,8 @@ select
     cast(ehail_fee as numeric) as ehail_fee,
     cast(improvement_surcharge as numeric) as improvement_surcharge,
     cast(total_amount as numeric) as total_amount,
-    cast(payment_type as integer) as payment_type
+    cast(payment_type as integer) as payment_type,
+    0 as congestion_surcharge -- green taxi does not have congestion surcharge, so we can set this to 0 for all records
 
 from {{ source('bigquery_data', 'green_tripdata') }}
 where vendorid is not null
