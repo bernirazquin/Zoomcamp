@@ -39,4 +39,4 @@ models:
     
     # Core: Materialized as tables for optimized downstream performance.
     core:
-      +materialized: table
+      +materialized: table 
