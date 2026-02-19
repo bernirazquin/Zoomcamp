@@ -3,11 +3,8 @@
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
-# 1. SECURITY & CREDENTIALS (CRITICAL)
+# 1. SECURITY & CREDENTIALS
 # ------------------------------------------------------------------------------
-# In this bootcamp, you will handle GCP/AWS Service Accounts. 
-# We ignore all .json files by default because leaking a key to GitHub 
-# can lead to unauthorized cloud usage and high costs.
 *.json
 keys/
 secrets/
@@ -17,15 +14,9 @@ auth/
 .envrc
 *.pem
 *.ppk
-
-# NOTE: If you must commit a non-sensitive JSON config file, 
-# use: git add -f filename.json
-
 # ------------------------------------------------------------------------------
 # 2. DATASETS & LARGE FILES
 # ------------------------------------------------------------------------------
-# GitHub is for code, not data. Files >100MB will fail to upload.
-# Your scripts should download the data; the data should not live in the repo.
 *.csv
 *.parquet
 *.jsonl
@@ -40,10 +31,8 @@ temp/
 # ------------------------------------------------------------------------------
 # 3. TERRAFORM
 # ------------------------------------------------------------------------------
-# .terraform: Contains heavy provider binaries.
-# .tfstate: Contains the "blueprint" of your infra. It often includes 
-# sensitive metadata and should NEVER be shared.
-.terraform/
+# .terraform:
+# .tfstate:
 *.tfstate
 *.tfstate.backup
 *.tfvars
@@ -53,8 +42,6 @@ temp/
 # ------------------------------------------------------------------------------
 # 4. DOCKER & DATABASE PERSISTENCE
 # ------------------------------------------------------------------------------
-# When you mount a volume for Postgres (e.g., pgdata/), thousands of 
-# system files are created. These are for local use only.
 pgdata/
 *_data/
 .docker/
@@ -62,7 +49,6 @@ pgdata/
 # ------------------------------------------------------------------------------
 # 5. PYTHON & ENVIRONMENTS
 # ------------------------------------------------------------------------------
-# Removes compiled code and local virtual environments to keep the repo clean.
 __pycache__/
 *.py[cod]
 *$py.class
