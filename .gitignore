@@ -75,3 +75,7 @@ target/
 dbt_packages/
 logs/
 dbt_internal_packages/
+dbt.log
+*.db
+*.bundle
+dbt
