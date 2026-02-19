@@ -12,4 +12,8 @@ trips_unioned as (
     select * from yellow_tripdata
 )
 
-select * from trips_unioned
+select distinct 
+    vendor_id 
+from {{ ref('int_trips_unioned') }}
+where pickup_datetime >= '2021-01-01'
+limit 300

@@ -1,45 +1,42 @@
-# 1. IDENTIFICACIÓN DEL PROYECTO
-# 'name' es el nombre único de tu proyecto. 
-# Importante: Todo lo que definas en la sección 'models' al final debe colgar de este nombre.
+# 1. PROJECT IDENTIFICATION
+# Unique project name. All model configurations below must match this name.
 name: 'taxi_rides_ny'
 version: '1.0.0'
 config-version: 2
 
-# 2. CONEXIÓN CON LA NUBE (dbt Cloud CLI)
-# Este bloque le dice al comando dbt de tu terminal que no use una base de datos local,
-# sino que mande la ejecución a tu proyecto específico en la plataforma de dbt Cloud.
+# 2. DBT CLOUD CLI CONNECTION
+# Links your local CLI to the specific dbt Cloud project ID.
 dbt-cloud:
   project-id: 70471823554289
 
-# 'profile' indica qué configuración de conexión usar. 
-# En dbt Cloud, siempre se deja como 'default' porque la conexión se configura en la interfaz web.
+# Connection profile. In dbt Cloud environments, this is typically set to 'default'.
 profile: 'default'
 
-# 3. RUTAS DE DIRECTORIOS
-# Aquí le dices a dbt en qué carpetas de tu VS Code están guardados los archivos.
-model-paths: ["models"]      # Donde están tus archivos .sql (los modelos)
-analysis-paths: ["analyses"] # Consultas SQL que no son modelos (para análisis rápido)
-test-paths: ["tests"]        # Pruebas de calidad de datos (asegurar que no haya nulos, etc.)
-seed-paths: ["seeds"]        # Archivos CSV pequeños que quieres cargar como tablas
-macro-paths: ["macros"]      # Funciones reutilizables de Jinja (como pedazos de código SQL)
-snapshot-paths: ["snapshots"] # Para llevar historial de cambios en tablas (Slowly Changing Dimensions)
+# 3. DIRECTORY PATHS
+# Defines where dbt looks for specific resource types in your workspace.
+model-paths: ["models"]      # SQL transformation models
+analysis-paths: ["analyses"] # Ad-hoc analytical queries
+test-paths: ["tests"]        # Data quality and validation tests
+seed-paths: ["seeds"]        # Static CSV files to be loaded as tables
+macro-paths: ["macros"]      # Reusable Jinja functions
+snapshot-paths: ["snapshots"] # SCD (Slowly Changing Dimension) logic
 
-# 4. ARCHIVOS TEMPORALES
-# 'target-path' es donde dbt guarda el SQL final compilado después de procesar el Jinja.
+# 4. TEMPORARY ARTIFACTS
+# Location for compiled SQL and directories to be removed during 'dbt clean'.
 target-path: "target"
 clean-targets:
   - "target"
-  - "dbt_packages" # Carpetas que se borran cuando corres 'dbt clean'
+  - "dbt_packages"
 
-# 5. CONFIGURACIÓN DE MODELOS (Cómo se crean en la base de datos)
-# Aquí defines las reglas para tus carpetas.
+# 5. MODEL CONFIGURATIONS
+# Defines materialization strategies (tables vs. views) by folder.
 models:
-  taxi_rides_ny: # <-- Este nombre DEBE coincidir con el 'name' de la línea 4
+  taxi_rides_ny: # Must match the 'name' defined in line 4
     
-    # Configuración para la carpeta 'models/staging/'
+    # Staging: Usually materialized as views for cost-efficiency and speed.
     staging:
-      +materialized: view # Los modelos aquí se crearán como VISTAS (más rápido, menos espacio)
+      +materialized: view 
     
-    # Configuración para la carpeta 'models/core/'
+    # Core: Materialized as tables for optimized downstream performance.
     core:
-      +materialized: table # Los modelos aquí se crearán como TABLAS físicas (mejor rendimiento para dashboards)
+      +materialized: table
