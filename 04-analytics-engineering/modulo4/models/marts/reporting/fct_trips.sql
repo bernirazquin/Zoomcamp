@@ -49,10 +49,28 @@ fact_trips as (
         trips.improvement_surcharge,
         trips.total_amount,
         trips.payment_type,
+        
+        -- payment_type description
+        case trips.payment_type
+            when 1 then 'Credit card'
+            when 2 then 'Cash'
+            when 3 then 'No charge'
+            when 4 then 'Dispute'
+            when 5 then 'Unknown'
+            when 6 then 'Voided trip'
+            else 'EMPTY'
+        end as payment_type_description,
+
         trips.congestion_surcharge
     from trips
     left join vendors on trips.vendor_id = vendors.vendor_id
     left join zones on trips.pickup_location_id = zones.location_id
 )
 
-select * from fact_trips
+-- duplicate trips are caused by the union of the two datasets (yellow and green taxis), so we need to remove them by keeping only one record per trip_id
+select * except (rn) from (
+    select *,
+        row_number() over(partition by trip_id order by pickup_datetime) as rn
+    from fact_trips
+)
+where rn = 1
