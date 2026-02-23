@@ -6,8 +6,8 @@ config-version: 2
 
 # 2. DBT CLOUD CLI CONNECTION
 # Links your local CLI to the specific dbt Cloud project ID.
-dbt-cloud:
-  project-id: 70471823554289
+# dbt-cloud:
+#   project-id: 70471823554289
 
 # Connection profile. In dbt Cloud environments, this is typically set to 'default'.
 profile: 'default'
