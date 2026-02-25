@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: dim_vendors
+    description: "Dimension table for taxi vendors"
+    columns:
+      - name: vendor_id
+        description: "Unique identifier for the taxi vendor"
+      - name: vendor_name
+        description: "Name of the taxi vendor"
+      - name: vendor_description
+        description: "Description of the taxi vendor"
+      - name: vendor_code
+        description: "Code representing the taxi vendor"
+      - name: vendor_category
+        description: "Category of the taxi vendor"
+      - name: vendor_status
+        description: "Operational status of the taxi vendor"
+      - name: vendor_start_date
+        description: "Date when the taxi vendor started operations"
+      - name: vendor_end_date
+        description: "Date when the taxi vendor ended operations"
+
+        # Just an example of a dimension table for taxi vendors. 
+        # You can customize the columns and descriptions based on your specific requirements 
+        # and the data available in your source tables.

@@ -5,6 +5,24 @@ sources:
       description: "Raw data sources for NYC taxi rides"
       database: modulo4-487315 # project ID
       schema: taxi_trips_data_all # Dataset name
-      tables: 
-         - name: green_tripdata
-         - name: yellow_tripdata
+      tables:
+        - name: green_tripdata
+          description: |
+            A code indicating the provider associated with the trip record. 
+                1: "Creative Mobile Technologies, LLC"
+                2: "VeriFone Inc."
+                3: "Uber Technologies Inc."
+          data_type: integer
+          meta:
+            pii: false
+            ownership: data_team
+            importance: high
+            formatting: none
+        - name: yellow_tripdata
+          description: Raw yellow trip data for NYC taxi rides
+          data_type: integer
+          meta:
+            pii: false
+            ownership: data_team
+            importance: high
+            formatting: none
