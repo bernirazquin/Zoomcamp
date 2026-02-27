@@ -32,11 +32,11 @@ clean-targets:
 # Defines materialization strategies (tables vs. views) by folder.
 models:
   taxi_rides_ny: # Must match the 'name' defined in line 4
-    
+    taxi_trips_data_all:
     # Staging: Usually materialized as views for cost-efficiency and speed.
-    staging:
-      +materialized: view 
+      staging:
+        +materialized: view 
     
     # Core: Materialized as tables for optimized downstream performance.
-    core:
-      +materialized: table 
+      core:
+        +materialized: table 
